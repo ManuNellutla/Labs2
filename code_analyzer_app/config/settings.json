@@ -2,9 +2,9 @@
     "input_dir": "data/input", 
     "output_dir": "data/output",
     "llm": {
-        "type": "openai",
-        "model": "gpt-4o",
-        "api_key": "env:OPENAI_API_KEY"
+        "type": "gemini",
+        "model": "gemini-2.0-flash",
+        "api_key": "env:GOOGLE_API_KEY"
     },
     "context_window": 128000,
     "chunk_size": 100000,

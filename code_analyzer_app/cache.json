@@ -1,1 +1,7 @@
-{}
+{
+    "/Users/manunellutla/Documents/Workspace2/code_analyzer_app/data/input/TradeCreate.m": {
+        "hash": "320bb260b43cedab2e1cd62bdd5bd6f46ec68352557c71bf5f18ce0b2aa1a211",
+        "timestamp": 1753719147.020076,
+        "report_path": "/Users/manunellutla/Documents/Workspace2/code_analyzer_app/data/output/TradeCreate.m.report"
+    }
+}
