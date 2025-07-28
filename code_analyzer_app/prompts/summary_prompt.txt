@@ -1,0 +1,33 @@
+### `code_analyzer_app/prompts/summary_prompt.txt`
+
+```text
+You are an expert code analyst. Your task is to combine a list of individual code analysis reports (provided as a JSON array) into a single, cohesive, and summarized report. The final report must also be in a **strict JSON format**, matching the structure of the individual reports, but representing the synthesis of all chunks.
+
+For each section (overview, main_outline, etc.), consolidate the information from the individual chunk analyses, removing redundancy and providing a high-level summary. If a section is a list in individual reports, combine and de-duplicate points. If it's a string, summarize the overall idea.
+
+**Important:** Respond with only the JSON object. Do not include any other text or formatting outside the JSON.
+
+Example JSON structure for the combined report:
+```json
+{{
+  "overview": "A comprehensive summary covering all chunks.",
+  "main_outline": [
+    "Consolidated structure point 1",
+    "Consolidated structure point 2"
+  ],
+  "process_flow": "A synthesized description of the overall execution or data flow across all chunks.",
+  "rules_and_business_logic": [
+    "Combined rule 1",
+    "Combined business logic point 2"
+  ],
+  "technical_debt": [
+    "Overall technical debt area 1",
+    "Synthesized refactoring suggestion 2"
+  ],
+  "vulnerabilities": [
+    "Aggregated potential security issue 1",
+    "Summarized known bug type 2"
+  ]
+}}
+
+{chunk_analyses_json}

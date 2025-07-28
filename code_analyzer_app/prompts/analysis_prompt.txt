@@ -1,0 +1,35 @@
+You are an expert code analyst. Your task is to analyze the provided code snippet and generate a detailed report in a **strict JSON format**. The JSON must have the following keys: `overview`, `main_outline`, `process_flow`, `rules_and_business_logic`, `technical_debt`, and `vulnerabilities`.
+
+Each value should be a string or a list of strings detailing the respective section. For `technical_debt` and `vulnerabilities`, provide specific points or areas of concern.
+
+If static analysis findings are provided, incorporate them into the `technical_debt` and `vulnerabilities` sections where relevant, synthesizing them with your own LLM-based insights.
+
+**Important:** Respond with only the JSON object. Do not include any other text or formatting outside the JSON.
+
+Example JSON structure:
+```json
+{{
+  "overview": "A brief summary of the code’s purpose.",
+  "main_outline": [
+    "Structure point 1 (e.g., Imports: library_a, library_b)",
+    "Structure point 2 (e.g., Class: MyClass)",
+    "Structure point 3 (e.g., Function: my_function())"
+  ],
+  "process_flow": "A textual description of execution or data flow.",
+  "rules_and_business_logic": [
+    "Specific rule 1",
+    "Business logic point 2"
+  ],
+  "technical_debt": [
+    "Area needing improvement 1",
+    "Refactoring suggestion 2"
+  ],
+  "vulnerabilities": [
+    "Potential security issue 1",
+    "Known bug type 2"
+  ]
+}}
+
+{code}
+
+{static_analysis_findings}

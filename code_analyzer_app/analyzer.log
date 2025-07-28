@@ -1,0 +1,24 @@
+2025-07-28 11:00:13,829 - __main__ - INFO - Starting code analysis application...
+2025-07-28 11:00:15,095 - core.processor - INFO - Found 1 files to analyze.
+2025-07-28 11:00:15,611 - core.processor - INFO - Analyzing BankingSystem.m...
+2025-07-28 11:00:16,778 - openai._base_client - INFO - Retrying request to /chat/completions in 0.381573 seconds
+2025-07-28 11:00:17,589 - openai._base_client - INFO - Retrying request to /chat/completions in 0.823503 seconds
+2025-07-28 11:00:18,827 - core.llm_manager - ERROR - Error during LLM analysis: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2025-07-28 11:00:18,827 - core.processor - WARNING - LLM error for BankingSystem.m (attempt 1/3): LLM analysis failed: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2025-07-28 11:00:20,251 - openai._base_client - INFO - Retrying request to /chat/completions in 0.455746 seconds
+2025-07-28 11:00:20,833 - openai._base_client - INFO - Retrying request to /chat/completions in 0.937791 seconds
+2025-07-28 11:00:22,000 - core.llm_manager - ERROR - Error during LLM analysis: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2025-07-28 11:00:22,000 - core.processor - WARNING - LLM error for BankingSystem.m (attempt 2/3): LLM analysis failed: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2025-07-28 11:00:24,117 - openai._base_client - INFO - Retrying request to /chat/completions in 0.427446 seconds
+2025-07-28 11:00:24,656 - openai._base_client - INFO - Retrying request to /chat/completions in 0.815484 seconds
+2025-07-28 11:00:26,686 - core.llm_manager - ERROR - Error during LLM analysis: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2025-07-28 11:00:26,686 - core.processor - WARNING - LLM error for BankingSystem.m (attempt 3/3): LLM analysis failed: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2025-07-28 11:00:26,686 - core.processor - ERROR - Failed to analyze BankingSystem.m after 3 attempts.
+2025-07-28 11:00:26,686 - core.processor - ERROR - LLM analysis failed for BankingSystem.m: LLM analysis failed: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2025-07-28 11:00:26,687 - core.processor - INFO - 
+--- Analysis Summary ---
+2025-07-28 11:00:26,688 - core.processor - INFO - Successfully analyzed: 0 files
+2025-07-28 11:00:26,688 - core.processor - INFO - Failed to analyze: 1 files
+2025-07-28 11:00:26,688 - core.processor - INFO -   - /Users/manunellutla/Documents/Workspace2/code_analyzer_app/data/input/BankingSystem.m (Reason: llm_error: LLM analysis failed: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}})
+2025-07-28 11:00:26,688 - core.processor - INFO - Skipped: 0 files
+2025-07-28 11:00:26,689 - __main__ - INFO - Code analysis application finished.

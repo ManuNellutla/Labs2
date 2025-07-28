@@ -1,0 +1,18 @@
+{
+    "input_dir": "data/input", 
+    "output_dir": "data/output",
+    "llm": {
+        "type": "openai",
+        "model": "gpt-4o",
+        "api_key": "env:OPENAI_API_KEY"
+    },
+    "context_window": 128000,
+    "chunk_size": 100000,
+    "chunk_overlap": 500,
+    "file_extensions": [".m", ".py", ".js", ".java", ".go", ".c", ".cpp", ".cs", ".php", ".rb", ".ts", ".jsx", ".tsx", ".sh", ".json", ".yaml", ".xml", ".html", ".css", ".md", ".txt"],
+    "report_format": "text",
+    "prompts": {
+        "analysis_template_path": "prompts/analysis_prompt.txt",
+        "summary_template_path": "prompts/summary_prompt.txt"
+    }
+}

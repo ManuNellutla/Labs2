@@ -1,0 +1,16 @@
+; Version 1.0 - Basic Trade Record Creation
+; Keywords: SET, KILL, WRITE, QUIT, NEW, IF
+NEW
+TRADE1 ; Create a new trade record
+ SET ^TRADE(TRADEID)="SYMBOL^QUANTITY^PRICE^ACCOUNT"
+ SET ^TRADE(TRADEID,"SYMBOL")=SYMBOL
+ SET ^TRADE(TRADEID,"QUANTITY")=QUANTITY
+ SET ^TRADE(TRADEID,"PRICE")=PRICE
+ SET ^TRADE(TRADEID,"ACCOUNT")=ACCOUNT
+ WRITE "Trade record created for ID: ",TRADEID,!
+ QUIT
+CANCEL1 ; Cancel a trade
+ IF '$D(^TRADE(TRADEID)) WRITE "No trade found!",! QUIT
+ KILL ^TRADE(TRADEID)
+ WRITE "Trade cancelled for ID: ",TRADEID,!
+ QUIT
