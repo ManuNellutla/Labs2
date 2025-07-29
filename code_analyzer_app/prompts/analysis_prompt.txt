@@ -15,7 +15,7 @@ Example JSON structure:
     "Structure point 2 (e.g., Class: MyClass)",
     "Structure point 3 (e.g., Function: my_function())"
   ],
-  "process_flow": "A textual description of execution or data flow.",
+  "process_flow": "process_flow": "A Mermaid syntax string (e.g., 'graph TD') illustrating the main execution flow or sequence of operations. Focus on the steps involved and how data transforms. If not enough information or not applicable, return an empty string. Example:\\n```mermaid\\ngraph TD\\n    A[Start] --> B(Process Data)\\n    B --> C{Decision Point?}\\n    C -- Yes --> D[Action 1]\\n    C -- No --> E[Action 2]\\n    D --> F[End]\\n    E --> F\\n```",
   "rules_and_business_logic": [
     "Specific rule 1",
     "Business logic point 2"

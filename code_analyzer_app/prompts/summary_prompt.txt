@@ -15,7 +15,7 @@ Example JSON structure for the combined report:
     "Consolidated structure point 1",
     "Consolidated structure point 2"
   ],
-  "process_flow": "A synthesized description of the overall execution or data flow across all chunks.",
+  "process_flow": "process_flow": "A Mermaid syntax string (e.g., 'graph TD') illustrating the main execution flow or sequence of operations. Focus on the steps involved and how data transforms. If not enough information or not applicable, return an empty string. Example:\\n```mermaid\\ngraph TD\\n    A[Start] --> B(Process Data)\\n    B --> C{Decision Point?}\\n    C -- Yes --> D[Action 1]\\n    C -- No --> E[Action 2]\\n    D --> F[End]\\n    E --> F\\n```",
   "rules_and_business_logic": [
     "Combined rule 1",
     "Combined business logic point 2"

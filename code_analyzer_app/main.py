@@ -1,122 +1,70 @@
 import argparse
-import logging
-import sys
 import os
-from dotenv import load_dotenv
+import logging
 
-# Adjust sys.path to allow imports from core and config
-# This is crucial when running directly from the project root
-project_root = os.path.dirname(os.path.abspath(__file__))
-if project_root not in sys.path:
-    sys.path.insert(0, project_root)
+# Set up basic logging (this will be overridden by AppConfig's log_level later)
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(name)s - %(message)s')
+logger = logging.getLogger(__name__)
 
-# Now we can import from our newly organized modules
-from config.settings import AppConfig, ConfigError
-from core.processor import CodeAnalyzerProcessor
-from core.utils import save_cache, calculate_file_hash, load_cache # Import to clear cache
-
-# Load environment variables from .env file
-load_dotenv()
-
-# Configure logging
-def setup_logging(log_file='analyzer.log', debug_mode=False):
-    log_level = logging.DEBUG if debug_mode else logging.INFO
-    logging.basicConfig(
-        level=log_level,
-        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-        handlers=[
-            logging.FileHandler(log_file, mode='w', encoding='utf-8'), # Overwrite log file each run
-            logging.StreamHandler(sys.stdout)
-        ]
-    )
-    # Suppress verbose logging from some libraries if not in debug mode
-    if not debug_mode:
-        logging.getLogger("httpx").setLevel(logging.WARNING)
-        logging.getLogger("httpcore").setLevel(logging.WARNING)
-        logging.getLogger("urllib3").setLevel(logging.WARNING)
-        logging.getLogger("pylint").setLevel(logging.WARNING)
-        logging.getLogger("bandit").setLevel(logging.WARNING)
-
+# Import core components
+from core.config_loader import load_config, AppConfig
+from core.processor import Processor
 
 def main():
-    parser = argparse.ArgumentParser(
-        description="Analyze code files using a configurable Large Language Model (LLM)."
-    )
-    parser.add_argument(
-        "--config",
-        type=str,
-        default=os.path.join(project_root, "config", "settings.json"), # Default path updated
-        help="Path to the configuration JSON file (default: config/settings.json)."
-    )
-    parser.add_argument(
-        "--input-dir",
-        type=str,
-        help="Override the input directory specified in config/settings.json."
-    )
-    parser.add_argument(
-        "--output-dir",
-        type=str,
-        help="Override the output directory specified in config/settings.json."
-    )
-    parser.add_argument(
-        "--debug",
-        action="store_true",
-        help="Enable debug logging."
-    )
-    parser.add_argument(
-        "--no-cache",
-        action="store_true",
-        help="Disable caching and force re-analysis of all files."
-    )
+    parser = argparse.ArgumentParser(description="LLM-Powered Code Analyzer.")
     parser.add_argument(
         "--static-analysis",
         action="store_true",
-        help="Enable static code analysis (Pylint, Bandit) for Python files to augment LLM findings."
+        help="Enable static analysis (Pylint, Bandit) before LLM analysis."
     )
-
+    parser.add_argument(
+        "--output-artifacts",
+        nargs='*', # 0 or more arguments
+        help="Specify output artifact types (e.g., summary_markdown detailed_json)."
+             "Overrides settings.json if provided."
+    )
     args = parser.parse_args()
 
-    setup_logging(debug_mode=args.debug)
-    logger = logging.getLogger(__name__)
-
-    logger.info("Starting code analysis application...")
+    # Determine project root (directory where main.py is located)
+    project_root = os.path.dirname(os.path.abspath(__file__))
 
     try:
-        # Pass the project root to AppConfig to help resolve relative paths
-        config_loader = AppConfig(config_path=args.config, project_root=project_root)
-        app_config = config_loader.config
+        app_config: AppConfig = load_config(project_root)
 
-        # Apply CLI overrides
-        if args.input_dir:
-            app_config['input_dir'] = args.input_dir
-            logger.info(f"Input directory overridden by CLI: {args.input_dir}")
-        if args.output_dir:
-            app_config['output_dir'] = args.output_dir
-            logger.info(f"Output directory overridden by CLI: {args.output_dir}")
+        # Override static_analysis_enabled if --static-analysis flag is used
+        if args.static_analysis:
+            app_config.static_analysis_enabled = True
+            logger.info("Static analysis explicitly enabled via command line.")
 
-        if args.no_cache:
-            cache_file_path = os.path.join(project_root, "cache.json")
-            if os.path.exists(cache_file_path):
-                os.remove(cache_file_path)
-                logger.info("Cache file removed due to --no-cache flag.")
-            # Clear lru_cache for calculate_file_hash
-            calculate_file_hash.cache_clear()
-            # Clear load_cache's internal memoization if it were used
-            if hasattr(load_cache, 'cache_clear'):
-                load_cache.cache_clear()
+        # Override output_artifacts if --output-artifacts argument is used
+        if args.output_artifacts:
+            # Validate provided artifact names against available templates
+            valid_artifacts = [
+                art for art in args.output_artifacts
+                if art in app_config.artifact_templates
+            ]
+            if len(valid_artifacts) != len(args.output_artifacts):
+                invalid_artifacts = set(args.output_artifacts) - set(valid_artifacts)
+                logger.warning(f"Ignoring invalid output artifact types: {', '.join(invalid_artifacts)}")
+            app_config.output_artifacts = valid_artifacts
+            logger.info(f"Output artifacts explicitly set via command line: {', '.join(app_config.output_artifacts)}")
 
+        # Configure logging based on loaded config
+        logging.getLogger().setLevel(getattr(logging, app_config.log_level))
+        logger.info(f"Log level set to {app_config.log_level}")
 
-        processor = CodeAnalyzerProcessor(app_config, enable_static_analysis=args.static_analysis)
+        processor = Processor(app_config)
         processor.run_analysis()
 
-        logger.info("Code analysis application finished.")
+        logger.info("Analysis complete!")
 
-    except ConfigError as e:
-        logger.error(f"Configuration error: {e}")
-        sys.exit(1)
+    except FileNotFoundError as e:
+        logger.critical(f"Configuration error: {e}")
+    except ValueError as e:
+        logger.critical(f"Configuration parsing error: {e}")
     except Exception as e:
-        logger.exception(f"An unhandled error occurred: {e}")
-        sys.exit(1)
+        logger.exception(f"An unhandled error occurred during analysis: {e}")
+
 
 if __name__ == "__main__":
     main()

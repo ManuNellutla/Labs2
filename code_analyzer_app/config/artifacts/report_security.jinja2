@@ -1,0 +1,18 @@
+# Security Analysis Report: {{ data.file_path }}
+
+## Identified Vulnerabilities
+{% if data.vulnerabilities %}
+{{ data.vulnerabilities }}
+{% else %}
+No specific vulnerabilities highlighted by the LLM in this analysis.
+{% endif %}
+
+## Security Recommendations
+{% if data.recommendations %}
+{{ data.recommendations }}
+{% else %}
+No specific security recommendations provided by the LLM.
+{% endif %}
+
+---
+*This report focuses on security aspects as perceived by the LLM. It should not replace thorough security audits.*

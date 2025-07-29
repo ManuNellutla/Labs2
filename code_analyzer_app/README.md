@@ -1,240 +1,231 @@
 # Code Analyzer Application
 
-This application analyzes code files using a Large Language Model (LLM) to generate reports on code overview, structure, process flow, business logic, technical debt, and potential vulnerabilities. It supports chunking large files and can integrate static analysis tools (Pylint, Bandit) for Python code.
+A modular Python application for automated code analysis using Large Language Models (LLMs) and static analysis tools. Supports chunking, caching, and extensible provider integration.
+
+---
+
+## Table of Contents
+1. [Features](#features)
+2. [Prerequisites](#prerequisites)
+3. [Installation](#installation)
+4. [Project Structure](#project-structure)
+5. [Configuration (`settings.json`)](#configuration-settingsjson)
+    * [General Settings](#general-settings)
+    * [LLM Configuration](#llm-configuration)
+        * [OpenAI](#openai)
+        * [Google Gemini](#google-gemini)
+        * [Hugging Face Hub (for Llama, Mistral, etc.)](#hugging-face-hub-for-llama-mistral-etc)
+    * [Context and Chunking](#context-and-chunking)
+    * [File Extensions](#file-extensions)
+    * [Report Format](#report-format)
+    * [Prompt Templates](#prompt-templates)
+6. [API Keys (`.env`)](#api-keys-env)
+7. [Running the Application](#running-the-application)
+    * [Basic Usage](#basic-usage)
+    * [With Static Analysis](#with-static-analysis)
+    * [Help Command](#help-command)
+8. [Output Reports](#output-reports)
+9. [Caching](#caching)
+10. [Static Analysis Integration](#static-analysis-integration)
+11. [Adding New LLM Providers](#adding-new-llm-providers)
+12. [Troubleshooting / Common Issues](#troubleshooting--common-issues)
+13. [License](#license)
+14. [Contributing](#contributing)
+
+---
+
+## Features
+- LLM-powered code analysis (Gemini, OpenAI, HuggingFace, etc.)
+- Static analysis integration (Pylint, Bandit)
+- Handles large files with chunking and context window
+- Caching for efficient re-analysis
+- Customizable prompt templates
+- Extensible provider and report format support
+
+---
+
+## Prerequisites
+- Python 3.9+
+- API keys for your chosen LLM provider(s)
+- (Optional) Pylint and Bandit for static analysis
+
+---
+
+## Installation
+1. Clone the repository or create the structure manually.
+2. Create and activate a virtual environment:
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. Create a `.env` file in the root directory and add your API keys (see [API Keys](#api-keys-env)).
+
+---
 
 ## Project Structure
-```code
+```text
 code_analyzer_app/
-├── config/                     # Holds all configuration files
-│   ├── init.py             # Makes 'config' a Python package
-│   └── settings.py             # Configuration loader and validator
+├── config/                     # Configuration files
+│   ├── __init__.py             # Makes 'config' a Python package
 │   └── settings.json           # Main application configuration
-├── data/                       # Default input/output directories
-│   ├── input/                  # Default input directory for code files
-│   └── output/                 # Default output directory for reports
-├── core/                       # Core application logic as a Python package
-│   ├── init.py             # Makes 'core' a Python package
-│   ├── llm_manager.py          # Manages LLM interactions, prompts, and chunking
-│   ├── processor.py            # Orchestrates file processing, LLM calls, static analysis, caching
-│   ├── report_generator.py     # Handles report formatting and saving
-│   ├── static_analyzer.py      # Runs external static analysis tools (Pylint, Bandit)
-│   └── utils.py                # General utility functions (hashing, file I/O, caching)
-├── prompts/                    # Directory for LLM prompt templates
-│   ├── analysis_prompt.txt
-│   └── summary_prompt.txt
-├── .env                        # Environment variables (e.g., API keys)
-├── main.py                     # The primary application entry point
-├── cache.json                  # Local cache file for analysis results
-└── requirements.txt            # Python dependencies
+├── data/
+│   ├── input/                  # Input code files for analysis
+│   └── output/                 # Output reports
+├── core/                       # Core logic as a Python package
+│   ├── __init__.py
+│   ├── llm_manager.py          # LLM provider management, chunking
+│   ├── processor.py            # Orchestrates file processing, LLM/static analysis, caching
+│   ├── report_generator.py     # Report formatting and saving
+│   ├── static_analyzer.py      # Static analysis (Pylint, Bandit)
+│   ├── utils.py                # Utilities (hashing, file I/O, cache)
+│   └── llm_providers/          # LLM provider implementations (OpenAI, Gemini, HuggingFace)
+├── prompts/
+│   ├── analysis_prompt.txt     # LLM prompt template for analysis
+│   └── summary_prompt.txt      # LLM prompt template for summary
+├── .env                        # API keys and environment variables
+├── main.py                     # Application entry point (CLI)
+├── cache.json                  # File hash and analysis cache
+├── requirements.txt            # Python dependencies
+└── README.md                   # Project documentation
 ```
 
-## Setup Instructions
+---
 
-1.  **Clone the repository (or create the structure manually)**:
-    ```bash
-    # If starting from scratch, create the main directory
-    mkdir code_analyzer_app
-    cd code_analyzer_app
+## Configuration (`settings.json`)
 
-    # Create subdirectories
-    mkdir -p config core data/input data/output prompts
+### General Settings
+- `input_dir`: Directory for input code files (default: `data/input`)
+- `output_dir`: Directory for output reports (default: `data/output`)
 
-    # Create __init__.py files to make them Python packages
-    touch config/__init__.py
-    touch core/__init__.py
-    ```
+### LLM Configuration
+- `llm.type`: Provider type (`openai`, `gemini`, `huggingface`)
+- `llm.model`: Model name (e.g., `gpt-4`, `gemini-2.0-flash`)
+- `llm.api_key`: API key (can use `env:KEY_NAME` to pull from `.env`)
 
-2.  **Place the regenerated files**: Copy the content of the regenerated files into their respective paths within the `code_analyzer_app/` directory.
+#### OpenAI
+```json
+"llm": {
+  "type": "openai",
+  "model": "gpt-4",
+  "api_key": "env:OPENAI_API_KEY"
+}
+```
+#### Google Gemini
+```json
+"llm": {
+  "type": "gemini",
+  "model": "gemini-2.0-flash",
+  "api_key": "env:GOOGLE_API_KEY"
+}
+```
+#### Hugging Face Hub (for Llama, Mistral, etc.)
+```json
+"llm": {
+  "type": "huggingface",
+  "model": "meta-llama/Llama-2-70b-chat-hf",
+  "api_key": "env:HUGGINGFACEHUB_API_TOKEN"
+}
+```
 
-3.  **Create and Activate a Python Virtual Environment (Recommended)**:
-    It's best practice to use a virtual environment to manage project dependencies.
+### Context and Chunking
+- `context_window`: Max tokens/characters for LLM context
+- `chunk_size`: Size of each code chunk
+- `chunk_overlap`: Overlap between chunks
 
-    * **Create the virtual environment**:
-        ```bash
-        python3 -m venv venv
-        ```
-        (This creates a folder named `venv` in your project directory containing an isolated Python environment.)
+### File Extensions
+- `file_extensions`: List of file types to analyze (e.g., `.py`, `.js`, `.java`)
 
-    * **Activate the virtual environment**:
-        * **On macOS/Linux**:
-            ```bash
-            source venv/bin/activate
-            ```
-        * **On Windows (Command Prompt)**:
-            ```bash
-            .\venv\Scripts\activate.bat
-            ```
-        * **On Windows (PowerShell)**:
-            ```powershell
-            .\venv\Scripts\Activate.ps1
-            ```
-        Once activated, your terminal prompt will usually show `(venv)` at the beginning, indicating you are in the virtual environment.
+### Report Format
+- `report_format`: `text`, `markdown`, or `json`
 
-4.  **Install Python Dependencies**:
-    With your virtual environment activated, install the required packages:
-    ```bash
-    pip install -r requirements.txt
-    ```
+### Prompt Templates
+- `prompts.analysis_template_path`: Path to analysis prompt template
+- `prompts.summary_template_path`: Path to summary prompt template
 
-5.  **Configure Environment Variables**:
-    Create a `.env` file in the `code_analyzer_app/` root directory and add your API keys:
-    ```ini
-    OPENAI_API_KEY="your_openai_api_key_here"
-    # If using Hugging Face, add:
-    # HUGGINGFACEHUB_API_TOKEN="your_huggingface_api_token_here"
-    ```
-    *Replace the placeholder values with your actual API keys.*
+---
 
-6.  **Prepare Input Code**:
-    Place the code files you want to analyze into the `data/input/` directory (or specify a different input directory using the `--input-dir` flag). For testing static analysis, include some Python files.
+## API Keys (`.env`)
+Store your API keys securely in a `.env` file at the project root. Example:
+```ini
+OPENAI_API_KEY="sk-..."
+GOOGLE_API_KEY="..."
+HUGGINGFACEHUB_API_TOKEN="..."
+```
 
-## Usage
+---
 
-Navigate to the `code_analyzer_app/` directory in your terminal. Ensure your virtual environment is activated (see step 3 in "Setup Instructions").
+## Running the Application
 
-
+### Basic Usage
+From the project root:
 ```bash
-cd code_analyzer_app
+python main.py
 ```
 
-Run the application using main.py:
-
+### With Static Analysis
+Enable static analysis (requires Pylint/Bandit):
 ```bash
-python main.py [OPTIONS]
+python main.py --static-analysis
 ```
 
-I can certainly help you with that! Here are the README.md and requirements.txt files for your code_analyzer_app, designed to fit the new modular structure.
-
-code_analyzer_app/README.md
-Markdown
-
-# Code Analyzer Application
-
-This application analyzes code files using a Large Language Model (LLM) to generate reports on code overview, structure, process flow, business logic, technical debt, and potential vulnerabilities. It supports chunking large files and can integrate static analysis tools (Pylint, Bandit) for Python code.
-
-## Project Structure
-```code
-code_analyzer_app/
-├── config/                     # Holds all configuration files
-│   ├── init.py             # Makes 'config' a Python package
-│   └── settings.py             # Configuration loader and validator
-│   └── settings.json           # Main application configuration
-├── data/                       # Default input/output directories
-│   ├── input/                  # Default input directory for code files
-│   └── output/                 # Default output directory for reports
-├── core/                       # Core application logic as a Python package
-│   ├── init.py             # Makes 'core' a Python package
-│   ├── llm_manager.py          # Manages LLM interactions, prompts, and chunking
-│   ├── processor.py            # Orchestrates file processing, LLM calls, static analysis, caching
-│   ├── report_generator.py     # Handles report formatting and saving
-│   ├── static_analyzer.py      # Runs external static analysis tools (Pylint, Bandit)
-│   └── utils.py                # General utility functions (hashing, file I/O, caching)
-├── prompts/                    # Directory for LLM prompt templates
-│   ├── analysis_prompt.txt
-│   └── summary_prompt.txt
-├── .env                        # Environment variables (e.g., API keys)
-├── main.py                     # The primary application entry point
-├── cache.json                  # Local cache file for analysis results
-└── requirements.txt            # Python dependencies
-```
-
-## Setup Instructions
-
-1.  **Clone the repository (or create the structure manually)**:
-    ```bash
-    # If starting from scratch, create the main directory
-    mkdir code_analyzer_app
-    cd code_analyzer_app
-
-    # Create subdirectories
-    mkdir -p config core data/input data/output prompts
-
-    # Create __init__.py files to make them Python packages
-    touch config/__init__.py
-    touch core/__init__.py
-    ```
-
-2.  **Place the regenerated files**: Copy the content of the regenerated files into their respective paths within the `code_analyzer_app/` directory.
-
-3.  **Install Python Dependencies**:
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-4.  **Configure Environment Variables**:
-    Create a `.env` file in the `code_analyzer_app/` root directory and add your API keys:
-    ```ini
-    OPENAI_API_KEY="your_openai_api_key_here"
-    # If using Hugging Face, add:
-    # HUGGINGFACEHUB_API_TOKEN="your_huggingface_api_token_here"
-    ```
-    *Replace the placeholder values with your actual API keys.*
-
-5.  **Prepare Input Code**:
-    Place the code files you want to analyze into the `data/input/` directory (or specify a different input directory using the `--input-dir` flag). For testing static analysis, include some Python files.
-
-## Usage
-
-Navigate to the `code_analyzer_app/` directory in your terminal.
-
+### Help Command
+See all options:
 ```bash
-cd code_analyzer_app
+python main.py --help
 ```
 
-Run the application using main.py:
+---
 
-```bash
-python main.py [OPTIONS]
-```
+## Output Reports
+- Reports are saved in `data/output/` (or as set in config)
+- Format: `.report`, `.md`, or `.json` depending on `report_format`
+- Each report summarizes code structure, process flow, business logic, technical debt, and vulnerabilities
 
-Command-line Options:
-- config <path>: Specify the path to the configuration JSON file.
+---
 
-Default: config/settings.json
+## Caching
+- `cache.json` tracks file hashes and report paths
+- Prevents re-analysis of unchanged files for efficiency
+- Use `--no-cache` to force re-analysis
 
-- input-dir <path>: Override the input directory specified in settings.json.
-- output-dir <path>: Override the output directory specified in settings.json.
-- debug: Enable verbose debug logging.
-- no-cache: Disable caching and force re-analysis of all files.
-- static-analysis: Enable static code analysis (Pylint, Bandit) for Python files. Ensure Pylint and Bandit are installed 
-    ```bash
-    pip install pylint bandit.
-    ```
+---
 
-### Examples:
-- **Basic Analysis (using default config):**
-    ```bash
-    python main.py
-    ```
+## Static Analysis Integration
+- Integrates Pylint and Bandit for Python files
+- Static findings are merged with LLM analysis in reports
+- Install with:
+  ```bash
+  pip install pylint bandit
+  ```
 
-- **Analyze with Static Analysis enabled:**
-    ```bash
-    python main.py --static-analysis
-    ```
+---
 
-**Generate Markdown Reports in a custom output directory:**
-(You would need to change report_format in config/settings.json to "markdown" first, or modify main.py to allow this override via CLI if desired for more flexible ad-hoc changes.)
-```bash
-python main.py --output-dir my_custom_reports_md
-```
+## Adding New LLM Providers
+- Add a new invoker in `core/llm_providers/`
+- Register it in `core/llm_manager.py`
+- Update `settings.json` with the new provider type and model
 
-Run in Debug mode with no caching:
+---
 
-```bash
-python main.py --debug --no-cache
-```
+## Troubleshooting / Common Issues
+- **Missing API keys:** Ensure `.env` is present and keys are valid
+- **Dependency errors:** Run `pip install -r requirements.txt` in your venv
+- **Static analysis not working:** Install Pylint/Bandit
+- **Large files:** Adjust `chunk_size` and `context_window` in config
+- **Provider/model errors:** Check model name and API key in config
 
-## Output
-Analysis reports will be saved in the data/output/ directory (or your specified output directory) in the format defined in settings.json (text, markdown, or JSON).
+---
 
-### Extending the Application
+## License
+MIT License (add LICENSE file if needed)
 
-- **New LLM Providers:** Add new LLM provider classes in core/llm_manager.py and extend the _initialize_llm method.
+---
 
-- **New Static Analysis Tools:** Add new analyzer methods in core/static_analyzer.py and integrate them into core/processor.py.
-
-- **Custom Report Formats:** Modify core/report_generator.py or introduce new generator classes for different output types. Consider using templating engines like Jinja2 for more complex custom reports.
-
-- **More Sophisticated Chunking:** Enhance core/llm_manager.py's chunk_code method for smarter, context-aware chunking.
+## Contributing
+Contributions welcome! Open issues or PRs for improvements.
 
 

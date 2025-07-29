@@ -1,105 +1,103 @@
 import hashlib
 import json
 import os
-import mimetypes
 import logging
-from typing import Dict, Any
-from functools import lru_cache
+from typing import Any, Dict, List, Set, Union
 
+from core.config_loader import AppConfig # Import AppConfig correctly
+
+# Configure logging for this module
 logger = logging.getLogger(__name__)
 
-@lru_cache(maxsize=128)
-def calculate_file_hash(filepath: str) -> str:
-    """Calculates the SHA-256 hash of a file's content."""
+def calculate_file_hash(file_path: str) -> str:
+    """Calculates the SHA256 hash of a file's content."""
     hasher = hashlib.sha256()
-    # Use a buffer for large files
+    # Handle potential file access issues more robustly
     try:
-        with open(filepath, 'rb') as f:
-            for chunk in iter(lambda: f.read(4096), b''):
+        with open(file_path, 'rb') as f:
+            while True:
+                chunk = f.read(8192)  # Read in 8KB chunks
+                if not chunk:
+                    break
                 hasher.update(chunk)
         return hasher.hexdigest()
-    except Exception as e:
-        logger.error(f"Error calculating hash for {filepath}: {e}")
-        return "ERROR_HASH"
+    except IOError as e:
+        logger.error(f"Error calculating hash for {file_path}: {e}")
+        return "ERROR_HASH" # Return a consistent error indicator
 
-def load_cache(project_root: str) -> Dict[str, Any]:
-    """Loads the cache from a JSON file. Cache file is at the project root."""
-    cache_file_path = os.path.join(project_root, 'cache.json')
-    if os.path.exists(cache_file_path):
+def load_cache(app_config: AppConfig) -> Dict[str, Any]:
+    """Loads the analysis cache from a JSON file."""
+    cache_path = os.path.join(app_config.project_root, app_config.cache_file)
+    if os.path.exists(cache_path):
         try:
-            with open(cache_file_path, 'r', encoding='utf-8') as f:
-                return json.load(f)
+            with open(cache_path, 'r', encoding='utf-8') as f:
+                cache = json.load(f)
+                logger.debug(f"Cache loaded from {cache_path}")
+                return cache
         except json.JSONDecodeError as e:
-            logger.warning(f"Error decoding cache file {cache_file_path}: {e}. Starting with empty cache.")
+            logger.error(f"Error decoding cache file {cache_path}: {e}")
+            return {} # Return empty cache on decode error
+        except Exception as e:
+            logger.error(f"An unexpected error occurred loading cache {cache_path}: {e}")
             return {}
+    logger.debug(f"No cache file found at {cache_path}. Starting with empty cache.")
     return {}
 
-def save_cache(cache: Dict[str, Any], project_root: str):
-    """Saves the cache to a JSON file. Cache file is at the project root."""
-    cache_file_path = os.path.join(project_root, 'cache.json')
+def save_cache(app_config: AppConfig, cache: Dict[str, Any]):
+    """Saves the analysis cache to a JSON file."""
+    cache_path = os.path.join(app_config.project_root, app_config.cache_file)
     try:
-        with open(cache_file_path, 'w', encoding='utf-8') as f:
+        # Ensure the directory for the cache file exists
+        os.makedirs(os.path.dirname(cache_path), exist_ok=True)
+        with open(cache_path, 'w', encoding='utf-8') as f:
             json.dump(cache, f, indent=4)
-    except IOError as e:
-        logger.error(f"Error saving cache file {cache_file_path}: {e}")
-
-def is_text_file(filepath: str) -> bool:
-    """Checks if a file is likely a text file based on mime type and common extensions."""
-    # Basic check for common binary file signatures
-    try:
-        with open(filepath, 'rb') as f:
-            header = f.read(4) # Read first 4 bytes
-            # Heuristic for common binary files (e.g., PDF, ZIP, PNG, JPEG)
-            if header.startswith(b'\x25\x50\x44\x46') or \
-               header.startswith(b'\x50\x4B\x03\x04') or \
-               header.startswith(b'\x89\x50\x4E\x47') or \
-               b'\x00' in header: # Presence of null bytes often indicates binary
-                return False
+        logger.debug(f"Cache saved to {cache_path}")
     except Exception as e:
-        logger.debug(f"Could not read file header for {filepath}: {e}")
-        return False
+        logger.error(f"Error saving cache to {cache_path}: {e}")
 
-    mime_type, _ = mimetypes.guess_type(filepath)
-    if mime_type:
-        # Include common text and code mime types
-        if mime_type.startswith('text/') or \
-           mime_type == 'application/json' or \
-           mime_type == 'application/xml' or \
-           mime_type == 'application/javascript' or \
-           mime_type == 'application/x-sh':
-            return True
-
-    # Fallback: check for common code/text file extensions if mimetype is inconclusive
-    text_extensions = {
-        '.txt', '.py', '.js', '.html', '.css', '.md', '.json', '.xml', '.yaml', '.yml', '.csv',
-        '.java', '.go', '.c', '.cpp', '.cs', '.php', '.rb', '.ts', '.jsx', '.tsx', '.sh', '.sql',
-        '.ini', '.log', '.toml', '.cfg', '.conf', '.properties', '.gitignore', '.env', '.dockerfile',
-        '.m' # Added .m for MUMPS files
+def is_text_file(file_path: str) -> bool:
+    """
+    Checks if a file is likely a text file based on its extension and some basic content checks.
+    This is a heuristic and not foolproof.
+    """
+    text_extensions: Set[str] = {'.m',
+        '.py', '.js', '.ts', '.java', '.c', '.cpp', '.h', '.hpp', '.cs',
+        '.go', '.php', '.rb', '.swift', '.kt', '.html', '.css', '.scss',
+        '.xml', '.json', '.yaml', '.yml', '.md', '.txt', '.log', '.ini',
+        '.cfg', '.toml', '.sh', '.bash', '.zsh', '.ps1', '.sql', '.vue',
+        '.jsx', '.tsx', '.mjs', '.cjs', '.dockerfile', '.properties', '.env'
     }
-    return any(filepath.lower().endswith(ext) for ext in text_extensions)
+    _, ext = os.path.splitext(file_path)
+    if ext.lower() not in text_extensions:
+        return False
+    
+    # Basic check for null bytes which usually indicate binary files
+    try:
+        with open(file_path, 'rb') as f:
+            # Read first 1KB to check for null bytes
+            initial_bytes = f.read(1024)
+            if b'\0' in initial_bytes:
+                return False # Likely binary
+    except Exception as e:
+        logger.debug(f"Could not perform binary check on {file_path}: {e}")
+        # If we can't check, assume it's text if extension matches
+        pass
 
-def read_file_content(filepath: str) -> str:
-    """Reads content from a file with robust encoding handling."""
-    encodings_to_try = ['utf-8', 'latin-1', 'cp1252']
-    for encoding in encodings_to_try:
+    return True
+
+def read_file_content(file_path: str) -> Union[str, None]:
+    """Reads content of a file, attempting common encodings."""
+    # Try utf-8 first, then latin-1
+    encodings = ['utf-8', 'latin-1', 'cp1252'] # Added cp1252 for Windows compatibility
+    for encoding in encodings:
         try:
-            with open(filepath, 'r', encoding=encoding) as f:
+            with open(file_path, 'r', encoding=encoding) as f:
                 return f.read()
         except UnicodeDecodeError:
-            logger.debug(f"Decoding failed with {encoding} for {filepath}.")
-            continue
+            continue # Try next encoding
         except Exception as e:
-            logger.error(f"Error reading file {filepath} with {encoding}: {e}")
-            raise
-    logger.error(f"Could not decode file {filepath} with any tried encoding.")
-    raise ValueError(f"Failed to read file {filepath} with known encodings.")
+            logger.warning(f"Error reading file {file_path} with encoding {encoding}: {e}")
+            return None # Other IO errors are fatal for this read
 
-def load_prompt_template(filepath: str) -> str:
-    """Loads a prompt template from a file."""
-    try:
-        with open(filepath, 'r', encoding='utf-8') as f:
-            return f.read()
-    except FileNotFoundError:
-        raise ValueError(f"Prompt template file not found: {filepath}")
-    except Exception as e:
-        raise ValueError(f"Error loading prompt template from {filepath}: {e}")
+    logger.warning(f"Could not decode {file_path} with any attempted encoding ({', '.join(encodings)}).")
+    return None

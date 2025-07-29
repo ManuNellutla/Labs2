@@ -15,7 +15,7 @@ class GeminiInvoker(BaseLLMInvoker):
     def __init__(self, llm_config: Dict[str, Any], context_window: int,
                  analysis_template: str, summary_template: str):
         # --- FIX: Set self.model_name *before* calling super().__init__() ---
-        self.model_name = llm_config.get('model', 'gemini-1.5-pro')
+        self.model_name = llm_config.get('model', 'gemini-2.0-flash')
         super().__init__(llm_config, context_window, analysis_template, summary_template)
 
     def _initialize_llm(self) -> BaseChatModel:

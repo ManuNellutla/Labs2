@@ -7,3 +7,4 @@ python-dotenv
 tqdm
 pylint # Optional, for static analysis
 bandit # Optional, for static analysis
+Jinja2

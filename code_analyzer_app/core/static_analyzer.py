@@ -9,7 +9,7 @@ class StaticAnalysisError(Exception):
     """Custom exception for static analysis tool errors."""
     pass
 
-class StaticCodeAnalyzer:
+class StaticAnalyzer:
     def __init__(self):
         self.pylint_available = False
         self.bandit_available = False
@@ -30,7 +30,7 @@ class StaticCodeAnalyzer:
         except (subprocess.CalledProcessError, FileNotFoundError):
             return False
 
-    def analyze_python_file(self, filepath: str) -> Dict[str, List[Dict[str, any]]]:
+    def analyze(self, filepath: str) -> Dict[str, List[Dict[str, any]]]:
         findings: Dict[str, List[Dict[str, any]]] = {
             "pylint": [],
             "bandit": []
