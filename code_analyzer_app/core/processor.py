@@ -142,6 +142,7 @@ class Processor:
 
         for file_path in all_files:
             analyzed_data = self._process_file(file_path)
+            print(analyzed_data)
             if analyzed_data:
                 self._generate_reports(analyzed_data)
             

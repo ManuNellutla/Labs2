@@ -1,0 +1,39 @@
+# Functional Requirements: {{ data.file_path }}
+
+## Overview of Functional Capabilities
+{{ data.functional_overview | default("A high-level description of what the system or component does from a user's perspective.") }}
+
+## Key Features / User Stories
+{% if data.user_stories_or_features %}
+{% for feature in data.user_stories_or_features %}
+### Feature: {{ feature.name }}
+{{ feature.description | default("No description.") }}
+- Acceptance Criteria:
+  {% for criterion in feature.acceptance_criteria %}
+  - {{ criterion }}
+  {% endfor %}
+{% endfor %}
+{% else %}
+No specific features or user stories identified.
+{% endif %}
+
+## Input / Output Expectations
+{% if data.input_output_expectations %}
+{{ data.input_output_expectations }}
+{% else %}
+N/A - Information not available.
+{% endif %}
+
+## User Interactions
+{% if data.user_interactions %}
+{{ data.user_interactions }}
+{% else %}
+N/A - Information not available.
+{% endif %}
+
+## System Interactions / Integrations
+{% if data.system_interactions %}
+{{ data.system_interactions }}
+{% else %}
+N/A - Information not available.
+{% endif %}

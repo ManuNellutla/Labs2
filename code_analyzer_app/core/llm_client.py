@@ -146,6 +146,7 @@ class LLMClient:
                 code_chunk=chunk
             )
             raw_response = self._call_llm(chunk_prompt)
+            raw_response=raw_response.strip("```").strip("json") if raw_response else None
             if raw_response:
                 try:
                     chunk_analysis = json.loads(raw_response)
@@ -201,14 +202,15 @@ class LLMClient:
 
         logger.info(f"Synthesizing overall summary for {file_path}...")
         final_raw_response = self._call_llm(synthesis_prompt)
-
+        final_raw_response=final_raw_response.strip("```").strip("json")
+        print(final_raw_response)
         if final_raw_response:
             try:
                 final_summary_data = json.loads(final_raw_response)
                 logger.info(f"Successfully synthesized summary for {file_path}.")
                 return final_summary_data
             except json.JSONDecodeError as e:
-                logger.error(f"Failed to parse final JSON summary for {file_path}: {e}\nRaw response: {final_raw_response[:500]}...")
+                logger.error(f"Failed to parse final JSON summary for {file_path}: {e}\nRaw response: {final_raw_response[:100]}...")
         else:
             logger.error(f"No valid final response for summary synthesis of {file_path}.")
 

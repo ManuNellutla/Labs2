@@ -12,26 +12,33 @@
     "file_extensions": [".m", ".py", ".js", ".java", ".go", ".c", ".cpp", 
                         ".cs", ".php", ".rb", ".ts", ".jsx", ".tsx", ".sh", 
                         ".json", ".yaml", ".xml", ".html", ".css", ".md", ".txt"],
-    "output_artifacts": [
-        "summary_markdown",
-        "detailed_json"
-    ],
+    "exclude_dirs": ["node_modules", ".git", ".venv", "__pycache__", "output", "data"],
+    "exclude_file_patterns": [".min.js", ".map"],      
+                  
     "artifact_templates": {
-        "summary_markdown": {
-            "template": "report_summary.jinja2",
-            "format": "markdown"
-        },
-        "security_markdown": {
-            "template": "report_security.jinja2",
-            "format": "markdown"
-        },
-        "detailed_json": {
-            "template": "report_detailed_json.jinja2",
-            "format": "json"
-        }
-    },
-    "prompts": {
-        "analysis_template_path": "prompts/analysis_prompt.txt",
-        "summary_template_path": "prompts/summary_prompt.txt"
-    }
+    "summary_markdown": "report_summary.jinja2",
+    "detailed_json": "report_detailed.jinja2",
+    "application_portfolio": "application_portfolio.jinja2",
+    "architecture_diagram": "architecture_diagram.jinja2",
+    "code_metrics_quality": "code_metrics_quality.jinja2",
+    "dependency_map": "dependency_map.jinja2",
+    "data_model_diagram": "data_model_diagram.jinja2",
+    "business_logic_doc": "business_logic_doc.jinja2",
+    "functional_requirements": "functional_requirements.jinja2",
+    "security_vulnerability": "security_vulnerability.jinja2"
+  },
+  "output_artifacts": [
+    "summary_markdown",
+    "detailed_json",
+    "application_portfolio",
+    "architecture_diagram",
+    "code_metrics_quality",
+    "dependency_map",
+    "data_model_diagram",
+    "business_logic_doc",
+    "functional_requirements",
+    "security_vulnerability"
+  ],
+
+  "log_level": "INFO"
 }
