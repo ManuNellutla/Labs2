@@ -82,6 +82,19 @@ classDiagram
     note for Bitbucket "Phase 2"
   ```
 
+**Diagram Explanation**:
+
+- **Grouping**: All agents are grouped in a `CoreAgents` subgraph to keep the diagram compact and focused on the `ParserAgent`’s context.
+- **Focus on ParserAgent**: The diagram emphasizes ParserAgent’s interactions:
+
+  - Receives `CodeFetched` events from `VCSConnectorAgent`.
+  - Publishes `ASTGenerated` events to `MetadataExtractorAgent`.
+  - Stores ASTs via `StorageAgent`.
+  - Coordinated by `MCPOrchestratorAgent` for MCP constraints.
+
+- **External Systems**: Includes connections to GitHub, GitLab, Bitbucket (Phase 2), MongoDB, S3, and Kafka for event publishing.
+- **Phase Annotation**: Notes Bitbucket support as a Phase 2 feature, aligning with the phased development plan.
+
 ## 2. Data Schema
 
 The `ParserAgent` uses the following schemas for input, output, and storage, extending the BRD’s schema to support parsing-specific data.
