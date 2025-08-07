@@ -1,0 +1,12 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run Code Analyzer",
+      "type": "shell",
+      "command": "python src/analyzer.py",
+      "group": "build",
+      "problemMatcher": []
+    }
+  ]
+}
