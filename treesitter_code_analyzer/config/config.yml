@@ -1,0 +1,11 @@
+# config/config.yaml (create this file; defaults in code if missing)
+
+backend:
+  port: 8000
+  host: "0.0.0.0"
+ui:
+  port: 8501
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+queries:
+  custom_dir: "src/code_analyzer/queries/custom"

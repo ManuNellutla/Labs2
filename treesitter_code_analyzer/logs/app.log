@@ -1,0 +1,284 @@
+2025-08-19 15:00:00,665 - fastapi - ERROR - Form data requires "python-multipart" to be installed. 
+You can install "python-multipart" with: 
+
+pip install python-multipart
+
+2025-08-19 15:05:08,901 - src.code_analyzer.api - INFO - API started with supported languages: []
+2025-08-19 15:53:32,654 - src.code_analyzer.api - INFO - API started with supported languages: ['javascript', 'python']
+2025-08-19 15:54:49,240 - src.code_analyzer.api - WARNING - Unsupported language requested: Python
+2025-08-19 15:55:04,671 - src.code_analyzer.api - ERROR - Unexpected error during parsing: __init__() takes exactly 1 argument (2 given)
+Traceback (most recent call last):
+  File "/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/api.py", line 43, in parse_endpoint
+    results = parse_code(code_bytes, language, mode, QUERIES)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/parser.py", line 43, in parse_code
+    lang_obj = get_language(language)
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "tree_sitter_languages/core.pyx", line 14, in tree_sitter_languages.core.get_language
+TypeError: __init__() takes exactly 1 argument (2 given)
+2025-08-19 16:01:49,301 - src.code_analyzer.api - INFO - API started with supported languages: ['javascript', 'python']
+2025-08-19 16:31:37,993 - src.code_analyzer.api - INFO - API started with supported languages: ['python']
+2025-08-19 16:32:12,938 - src.code_analyzer.api - ERROR - Unexpected error during parsing: __init__() takes exactly 1 argument (2 given)
+Traceback (most recent call last):
+  File "/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/api.py", line 43, in parse_endpoint
+    results = parse_code(code_bytes, language, mode, QUERIES)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/parser.py", line 43, in parse_code
+    lang_obj = get_language(language)
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "tree_sitter_languages/core.pyx", line 14, in tree_sitter_languages.core.get_language
+TypeError: __init__() takes exactly 1 argument (2 given)
+2025-08-19 16:33:02,233 - src.code_analyzer.api - INFO - API started with supported languages: ['python']
+2025-08-19 16:33:34,704 - src.code_analyzer.api - INFO - API started with supported languages: ['javascript', 'python']
+2025-08-19 16:33:50,858 - src.code_analyzer.api - ERROR - Unexpected error during parsing: __init__() takes exactly 1 argument (2 given)
+Traceback (most recent call last):
+  File "/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/api.py", line 43, in parse_endpoint
+    results = parse_code(code_bytes, language, mode, QUERIES)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/parser.py", line 43, in parse_code
+    lang_obj = get_language(language)
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "tree_sitter_languages/core.pyx", line 14, in tree_sitter_languages.core.get_language
+TypeError: __init__() takes exactly 1 argument (2 given)
+2025-08-19 16:43:10,572 - src.code_analyzer.api - INFO - API started with supported languages: ['javascript', 'python']
+2025-08-19 16:43:16,830 - src.code_analyzer.api - ERROR - Unexpected error during parsing: __init__() takes exactly 1 argument (2 given)
+Traceback (most recent call last):
+  File "/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/api.py", line 43, in parse_endpoint
+    results = parse_code(code_bytes, language, mode, QUERIES)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/parser.py", line 43, in parse_code
+    lang_obj = get_language('python')
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "tree_sitter_languages/core.pyx", line 14, in tree_sitter_languages.core.get_language
+TypeError: __init__() takes exactly 1 argument (2 given)
+2025-08-19 16:47:32,678 - src.code_analyzer.parser - INFO - Loading default queries from: /Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries
+2025-08-19 16:47:32,766 - src.code_analyzer.parser - INFO - Found default query files: [PosixPath('/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries/javascript.yaml'), PosixPath('/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries/python.yaml')]
+2025-08-19 16:47:32,768 - src.code_analyzer.parser - INFO - Loaded queries for javascript
+2025-08-19 16:47:32,773 - src.code_analyzer.parser - INFO - Loaded queries for python
+2025-08-19 16:47:32,782 - src.code_analyzer.parser - INFO - Loading custom queries from: src/code_analyzer/queries/custom
+2025-08-19 16:47:32,782 - src.code_analyzer.parser - INFO - Found custom query files: []
+2025-08-19 16:47:32,783 - src.code_analyzer.parser - INFO - Supported languages: ['javascript', 'python']
+2025-08-19 16:47:32,783 - src.code_analyzer.parser - INFO - Supported modes: ['functions', 'imports', 'calls']
+2025-08-19 16:47:32,852 - src.code_analyzer.api - INFO - API started with supported languages: ['javascript', 'python']
+2025-08-19 16:47:43,748 - src.code_analyzer.parser - ERROR - Failed to load language python: No module named 'tree_sitter_python'
+2025-08-19 16:47:43,748 - src.code_analyzer.api - ERROR - Value error during parsing: Unsupported language: python
+2025-08-19 16:49:53,920 - src.code_analyzer.parser - INFO - Loading default queries from: /Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries
+2025-08-19 16:49:53,921 - src.code_analyzer.parser - INFO - Found default query files: [PosixPath('/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries/javascript.yaml'), PosixPath('/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries/python.yaml')]
+2025-08-19 16:49:53,922 - src.code_analyzer.parser - INFO - Loaded queries for javascript
+2025-08-19 16:49:53,923 - src.code_analyzer.parser - INFO - Loaded queries for python
+2025-08-19 16:49:53,923 - src.code_analyzer.parser - INFO - Loading custom queries from: src/code_analyzer/queries/custom
+2025-08-19 16:49:53,923 - src.code_analyzer.parser - INFO - Found custom query files: []
+2025-08-19 16:49:53,923 - src.code_analyzer.parser - INFO - Supported languages: ['javascript', 'python']
+2025-08-19 16:49:53,923 - src.code_analyzer.parser - INFO - Supported modes: ['calls', 'imports', 'functions']
+2025-08-19 16:49:53,928 - src.code_analyzer.api - INFO - API started with supported languages: ['javascript', 'python']
+2025-08-19 16:50:00,187 - src.code_analyzer.api - ERROR - Unexpected error during parsing: 'tree_sitter.Parser' object has no attribute 'set_language'
+Traceback (most recent call last):
+  File "/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/api.py", line 43, in parse_endpoint
+    results = parse_code(code_bytes, language, mode, QUERIES)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/parser.py", line 78, in parse_code
+    parser.set_language(lang_obj)
+    ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'tree_sitter.Parser' object has no attribute 'set_language'
+2025-08-19 16:52:10,563 - src.code_analyzer.parser - INFO - Loading default queries from: /Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries
+2025-08-19 16:52:10,564 - src.code_analyzer.parser - INFO - Found default query files: [PosixPath('/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries/javascript.yaml'), PosixPath('/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries/python.yaml')]
+2025-08-19 16:52:10,565 - src.code_analyzer.parser - INFO - Loaded queries for javascript
+2025-08-19 16:52:10,566 - src.code_analyzer.parser - INFO - Loaded queries for python
+2025-08-19 16:52:10,566 - src.code_analyzer.parser - INFO - Loading custom queries from: src/code_analyzer/queries/custom
+2025-08-19 16:52:10,566 - src.code_analyzer.parser - INFO - Found custom query files: []
+2025-08-19 16:52:10,566 - src.code_analyzer.parser - INFO - Supported languages: ['javascript', 'python']
+2025-08-19 16:52:10,566 - src.code_analyzer.parser - INFO - Supported modes: ['calls', 'imports', 'functions']
+2025-08-19 16:52:10,576 - src.code_analyzer.api - INFO - API started with supported languages: ['javascript', 'python']
+2025-08-19 16:52:16,315 - src.code_analyzer.parser - ERROR - Query execution failed for python/imports: 'tree_sitter.Query' object has no attribute 'captures'
+2025-08-19 16:52:16,316 - src.code_analyzer.api - ERROR - Value error during parsing: Query error: 'tree_sitter.Query' object has no attribute 'captures'
+2025-08-19 16:53:26,418 - src.code_analyzer.parser - INFO - Loading default queries from: /Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries
+2025-08-19 16:53:26,419 - src.code_analyzer.parser - INFO - Found default query files: [PosixPath('/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries/javascript.yaml'), PosixPath('/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries/python.yaml')]
+2025-08-19 16:53:26,423 - src.code_analyzer.parser - INFO - Loaded queries for javascript
+2025-08-19 16:53:26,428 - src.code_analyzer.parser - INFO - Loaded queries for python
+2025-08-19 16:53:26,428 - src.code_analyzer.parser - INFO - Loading custom queries from: src/code_analyzer/queries/custom
+2025-08-19 16:53:26,429 - src.code_analyzer.parser - INFO - Found custom query files: []
+2025-08-19 16:53:26,430 - src.code_analyzer.parser - INFO - Supported languages: ['javascript', 'python']
+2025-08-19 16:53:26,431 - src.code_analyzer.parser - INFO - Supported modes: ['imports', 'functions', 'calls']
+2025-08-19 16:53:26,456 - src.code_analyzer.api - INFO - API started with supported languages: ['javascript', 'python']
+2025-08-19 16:53:30,506 - src.code_analyzer.parser - ERROR - Query execution failed for python/imports: 'tree_sitter.Query' object has no attribute 'capture_nodes'
+2025-08-19 16:53:30,506 - src.code_analyzer.api - ERROR - Value error during parsing: Query error: 'tree_sitter.Query' object has no attribute 'capture_nodes'
+2025-08-19 16:55:12,793 - src.code_analyzer.parser - INFO - Loading default queries from: /Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries
+2025-08-19 16:55:12,794 - src.code_analyzer.parser - INFO - Found default query files: [PosixPath('/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries/javascript.yaml'), PosixPath('/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries/python.yaml')]
+2025-08-19 16:55:12,795 - src.code_analyzer.parser - INFO - Loaded queries for javascript
+2025-08-19 16:55:12,796 - src.code_analyzer.parser - INFO - Loaded queries for python
+2025-08-19 16:55:12,797 - src.code_analyzer.parser - INFO - Loading custom queries from: src/code_analyzer/queries/custom
+2025-08-19 16:55:12,797 - src.code_analyzer.parser - INFO - Found custom query files: []
+2025-08-19 16:55:12,797 - src.code_analyzer.parser - INFO - Supported languages: ['javascript', 'python']
+2025-08-19 16:55:12,797 - src.code_analyzer.parser - INFO - Supported modes: ['imports', 'calls', 'functions']
+2025-08-19 16:55:12,803 - src.code_analyzer.api - INFO - API started with supported languages: ['javascript', 'python']
+2025-08-19 16:55:22,187 - src.code_analyzer.parser - ERROR - Query execution failed for python/imports: 'tree_sitter.Query' object has no attribute 'captures'
+2025-08-19 16:55:22,188 - src.code_analyzer.api - ERROR - Value error during parsing: Query error: 'tree_sitter.Query' object has no attribute 'captures'
+2025-08-20 11:39:32,602 - src.code_analyzer.parser - INFO - Loading default queries from: /Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries
+2025-08-20 11:39:32,602 - src.code_analyzer.parser - INFO - Found default query files: [PosixPath('/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries/javascript.yaml'), PosixPath('/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries/python.yaml')]
+2025-08-20 11:39:32,604 - src.code_analyzer.parser - INFO - Loaded queries for javascript
+2025-08-20 11:39:32,604 - src.code_analyzer.parser - INFO - Loaded queries for python
+2025-08-20 11:39:32,605 - src.code_analyzer.parser - INFO - Loading custom queries from: src/code_analyzer/queries/custom
+2025-08-20 11:39:32,605 - src.code_analyzer.parser - INFO - Found custom query files: []
+2025-08-20 11:39:32,605 - src.code_analyzer.parser - INFO - Supported languages: ['javascript', 'python']
+2025-08-20 11:39:32,605 - src.code_analyzer.parser - INFO - Supported modes: ['calls', 'imports', 'functions']
+2025-08-20 11:39:32,612 - src.code_analyzer.api - INFO - API started with supported languages: ['javascript', 'python']
+2025-08-20 12:03:32,714 - src.code_analyzer.parser - INFO - Loading default queries from: /Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries
+2025-08-20 12:03:32,715 - src.code_analyzer.parser - INFO - Found default query files: [PosixPath('/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries/javascript.yaml'), PosixPath('/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries/python.yaml')]
+2025-08-20 12:03:32,716 - src.code_analyzer.parser - INFO - Loaded queries for javascript
+2025-08-20 12:03:32,717 - src.code_analyzer.parser - INFO - Loaded queries for python
+2025-08-20 12:03:32,717 - src.code_analyzer.parser - INFO - Loading custom queries from: src/code_analyzer/queries/custom
+2025-08-20 12:03:32,717 - src.code_analyzer.parser - INFO - Found custom query files: []
+2025-08-20 12:03:32,717 - src.code_analyzer.parser - INFO - Supported languages: ['javascript', 'python']
+2025-08-20 12:03:32,717 - src.code_analyzer.parser - INFO - Supported modes: ['functions', 'imports', 'calls', 'call_graph']
+2025-08-20 12:03:32,724 - src.code_analyzer.api - INFO - API started with supported languages: ['javascript', 'python']
+2025-08-20 12:03:41,777 - src.code_analyzer.parser - ERROR - Query execution failed for python/imports: 'tree_sitter.Query' object has no attribute 'captures'
+2025-08-20 12:03:41,777 - src.code_analyzer.api - ERROR - Value error during parsing: Query error: 'tree_sitter.Query' object has no attribute 'captures'
+2025-08-20 12:06:20,995 - src.code_analyzer.parser - INFO - Loading default queries from: /Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries
+2025-08-20 12:06:20,996 - src.code_analyzer.parser - INFO - Found default query files: [PosixPath('/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries/javascript.yaml'), PosixPath('/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries/python.yaml')]
+2025-08-20 12:06:20,997 - src.code_analyzer.parser - INFO - Loaded queries for javascript
+2025-08-20 12:06:20,998 - src.code_analyzer.parser - INFO - Loaded queries for python
+2025-08-20 12:06:20,998 - src.code_analyzer.parser - INFO - Loading custom queries from: src/code_analyzer/queries/custom
+2025-08-20 12:06:20,998 - src.code_analyzer.parser - INFO - Found custom query files: []
+2025-08-20 12:06:20,999 - src.code_analyzer.parser - INFO - Supported languages: ['javascript', 'python']
+2025-08-20 12:06:20,999 - src.code_analyzer.parser - INFO - Supported modes: ['functions', 'call_graph', 'calls', 'imports']
+2025-08-20 12:06:21,004 - src.code_analyzer.api - INFO - API started with supported languages: ['javascript', 'python']
+2025-08-20 12:06:28,458 - src.code_analyzer.parser - ERROR - Query execution failed for python/imports: 'tree_sitter.Query' object has no attribute 'captures'
+2025-08-20 12:06:28,459 - src.code_analyzer.api - ERROR - Value error during parsing: Query error: 'tree_sitter.Query' object has no attribute 'captures'
+2025-08-20 12:09:02,431 - src.code_analyzer.parser - INFO - Loading default queries from: /Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries
+2025-08-20 12:09:02,432 - src.code_analyzer.parser - INFO - Found default query files: [PosixPath('/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries/javascript.yaml'), PosixPath('/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries/python.yaml')]
+2025-08-20 12:09:02,433 - src.code_analyzer.parser - INFO - Loaded queries for javascript
+2025-08-20 12:09:02,434 - src.code_analyzer.parser - INFO - Loaded queries for python
+2025-08-20 12:09:02,434 - src.code_analyzer.parser - INFO - Loading custom queries from: src/code_analyzer/queries/custom
+2025-08-20 12:09:02,434 - src.code_analyzer.parser - INFO - Found custom query files: []
+2025-08-20 12:09:02,435 - src.code_analyzer.parser - INFO - Supported languages: ['javascript', 'python']
+2025-08-20 12:09:02,435 - src.code_analyzer.parser - INFO - Supported modes: ['call_graph', 'imports', 'functions', 'calls']
+2025-08-20 12:09:02,446 - src.code_analyzer.api - INFO - API started with supported languages: ['javascript', 'python']
+2025-08-20 12:09:08,450 - src.code_analyzer.parser - ERROR - Query execution failed for python/imports: 'tree_sitter.Query' object has no attribute 'query_captures'
+2025-08-20 12:09:08,451 - src.code_analyzer.api - ERROR - Value error during parsing: Query error: 'tree_sitter.Query' object has no attribute 'query_captures'
+2025-08-20 12:14:22,042 - src.code_analyzer.parser - INFO - Loading default queries from: /Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries
+2025-08-20 12:14:22,043 - src.code_analyzer.parser - INFO - Found default query files: [PosixPath('/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries/javascript.yaml'), PosixPath('/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries/python.yaml')]
+2025-08-20 12:14:22,045 - src.code_analyzer.parser - INFO - Loaded queries for javascript
+2025-08-20 12:14:22,047 - src.code_analyzer.parser - INFO - Loaded queries for python
+2025-08-20 12:14:22,048 - src.code_analyzer.parser - INFO - Loading custom queries from: src/code_analyzer/queries/custom
+2025-08-20 12:14:22,048 - src.code_analyzer.parser - INFO - Found custom query files: []
+2025-08-20 12:14:22,050 - src.code_analyzer.parser - INFO - Supported languages: ['javascript', 'python']
+2025-08-20 12:14:22,050 - src.code_analyzer.parser - INFO - Supported modes: ['functions', 'imports', 'call_graph', 'calls']
+2025-08-20 12:14:22,056 - src.code_analyzer.api - INFO - API started with supported languages: ['javascript', 'python']
+2025-08-20 12:15:09,824 - src.code_analyzer.parser - ERROR - Query execution failed for python/call_graph: a bytes-like object is required, not 'dict'
+2025-08-20 12:15:09,824 - src.code_analyzer.api - ERROR - Value error during parsing: Query error: a bytes-like object is required, not 'dict'
+2025-08-20 12:17:35,790 - src.code_analyzer.parser - INFO - Loading default queries from: /Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries
+2025-08-20 12:17:35,790 - src.code_analyzer.parser - INFO - Found default query files: [PosixPath('/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries/javascript.yaml'), PosixPath('/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries/python.yaml')]
+2025-08-20 12:17:35,791 - src.code_analyzer.parser - INFO - Loaded queries for javascript
+2025-08-20 12:17:35,792 - src.code_analyzer.parser - INFO - Loaded queries for python
+2025-08-20 12:17:35,792 - src.code_analyzer.parser - INFO - Loading custom queries from: src/code_analyzer/queries/custom
+2025-08-20 12:17:35,793 - src.code_analyzer.parser - INFO - Found custom query files: []
+2025-08-20 12:17:35,793 - src.code_analyzer.parser - INFO - Supported languages: ['javascript', 'python']
+2025-08-20 12:17:35,793 - src.code_analyzer.parser - INFO - Supported modes: ['call_graph', 'calls', 'functions', 'imports']
+2025-08-20 12:17:35,797 - src.code_analyzer.api - INFO - API started with supported languages: ['javascript', 'python']
+2025-08-20 12:17:39,464 - src.code_analyzer.parser - ERROR - Query execution failed for python/call_graph: 'tree_sitter.Query' object has no attribute 'captures'
+2025-08-20 12:17:39,464 - src.code_analyzer.api - ERROR - Value error during parsing: Query error: 'tree_sitter.Query' object has no attribute 'captures'
+2025-08-20 12:18:45,882 - src.code_analyzer.parser - INFO - Loading default queries from: /Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries
+2025-08-20 12:18:45,883 - src.code_analyzer.parser - INFO - Found default query files: [PosixPath('/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries/javascript.yaml'), PosixPath('/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries/python.yaml')]
+2025-08-20 12:18:45,884 - src.code_analyzer.parser - INFO - Loaded queries for javascript
+2025-08-20 12:18:45,885 - src.code_analyzer.parser - INFO - Loaded queries for python
+2025-08-20 12:18:45,885 - src.code_analyzer.parser - INFO - Loading custom queries from: src/code_analyzer/queries/custom
+2025-08-20 12:18:45,885 - src.code_analyzer.parser - INFO - Found custom query files: []
+2025-08-20 12:18:45,885 - src.code_analyzer.parser - INFO - Supported languages: ['javascript', 'python']
+2025-08-20 12:18:45,886 - src.code_analyzer.parser - INFO - Supported modes: ['calls', 'call_graph', 'imports', 'functions']
+2025-08-20 12:18:45,894 - src.code_analyzer.api - INFO - API started with supported languages: ['javascript', 'python']
+2025-08-20 12:18:47,331 - src.code_analyzer.parser - ERROR - Query execution failed for python/call_graph: 'tree_sitter.Query' object has no attribute 'enable_capture_indices'
+2025-08-20 12:18:47,332 - src.code_analyzer.api - ERROR - Value error during parsing: Query error: 'tree_sitter.Query' object has no attribute 'enable_capture_indices'
+2025-08-20 12:19:26,206 - src.code_analyzer.parser - INFO - Loading default queries from: /Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries
+2025-08-20 12:19:26,207 - src.code_analyzer.parser - INFO - Found default query files: [PosixPath('/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries/javascript.yaml'), PosixPath('/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries/python.yaml')]
+2025-08-20 12:19:26,210 - src.code_analyzer.parser - INFO - Loaded queries for javascript
+2025-08-20 12:19:26,211 - src.code_analyzer.parser - INFO - Loaded queries for python
+2025-08-20 12:19:26,211 - src.code_analyzer.parser - INFO - Loading custom queries from: src/code_analyzer/queries/custom
+2025-08-20 12:19:26,211 - src.code_analyzer.parser - INFO - Found custom query files: []
+2025-08-20 12:19:26,211 - src.code_analyzer.parser - INFO - Supported languages: ['javascript', 'python']
+2025-08-20 12:19:26,212 - src.code_analyzer.parser - INFO - Supported modes: ['call_graph', 'calls', 'imports', 'functions']
+2025-08-20 12:19:26,217 - src.code_analyzer.api - INFO - API started with supported languages: ['javascript', 'python']
+2025-08-20 12:23:23,144 - src.code_analyzer.parser - INFO - Loading default queries from: /Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries
+2025-08-20 12:23:23,144 - src.code_analyzer.parser - INFO - Found default query files: [PosixPath('/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries/javascript.yaml'), PosixPath('/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries/python.yaml')]
+2025-08-20 12:23:23,147 - src.code_analyzer.parser - INFO - Loaded queries for javascript
+2025-08-20 12:23:23,159 - src.code_analyzer.parser - INFO - Loaded queries for python
+2025-08-20 12:23:23,160 - src.code_analyzer.parser - INFO - Loading custom queries from: src/code_analyzer/queries/custom
+2025-08-20 12:23:23,160 - src.code_analyzer.parser - INFO - Found custom query files: []
+2025-08-20 12:23:23,161 - src.code_analyzer.parser - INFO - Supported languages: ['javascript', 'python']
+2025-08-20 12:23:23,161 - src.code_analyzer.parser - INFO - Supported modes: ['functions', 'imports', 'calls', 'call_graph']
+2025-08-20 12:23:23,212 - src.code_analyzer.api - INFO - API started with supported languages: ['javascript', 'python']
+2025-08-20 12:23:29,258 - src.code_analyzer.parser - ERROR - Query execution failed for python/call_graph: 'tree_sitter.Query' object has no attribute 'matches'
+2025-08-20 12:23:29,258 - src.code_analyzer.api - ERROR - Value error during parsing: Query error: 'tree_sitter.Query' object has no attribute 'matches'
+2025-08-20 12:24:10,114 - src.code_analyzer.parser - INFO - Loading default queries from: /Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries
+2025-08-20 12:24:10,115 - src.code_analyzer.parser - INFO - Found default query files: [PosixPath('/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries/javascript.yaml'), PosixPath('/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries/python.yaml')]
+2025-08-20 12:24:10,116 - src.code_analyzer.parser - INFO - Loaded queries for javascript
+2025-08-20 12:24:10,117 - src.code_analyzer.parser - INFO - Loaded queries for python
+2025-08-20 12:24:10,117 - src.code_analyzer.parser - INFO - Loading custom queries from: src/code_analyzer/queries/custom
+2025-08-20 12:24:10,117 - src.code_analyzer.parser - INFO - Found custom query files: []
+2025-08-20 12:24:10,117 - src.code_analyzer.parser - INFO - Supported languages: ['javascript', 'python']
+2025-08-20 12:24:10,117 - src.code_analyzer.parser - INFO - Supported modes: ['imports', 'calls', 'functions', 'call_graph']
+2025-08-20 12:24:10,126 - src.code_analyzer.api - INFO - API started with supported languages: ['javascript', 'python']
+2025-08-20 12:24:11,687 - src.code_analyzer.parser - ERROR - Query execution failed for python/call_graph: 'tree_sitter.Query' object has no attribute 'matches'
+2025-08-20 12:24:11,689 - src.code_analyzer.api - ERROR - Value error during parsing: Query error: 'tree_sitter.Query' object has no attribute 'matches'
+2025-08-20 12:26:24,393 - src.code_analyzer.parser - INFO - Loading default queries from: /Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries
+2025-08-20 12:26:24,394 - src.code_analyzer.parser - INFO - Found default query files: [PosixPath('/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries/javascript.yaml'), PosixPath('/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries/python.yaml')]
+2025-08-20 12:26:24,395 - src.code_analyzer.parser - INFO - Loaded queries for javascript
+2025-08-20 12:26:24,396 - src.code_analyzer.parser - INFO - Loaded queries for python
+2025-08-20 12:26:24,397 - src.code_analyzer.parser - INFO - Loading custom queries from: src/code_analyzer/queries/custom
+2025-08-20 12:26:24,397 - src.code_analyzer.parser - INFO - Found custom query files: []
+2025-08-20 12:26:24,397 - src.code_analyzer.parser - INFO - Supported languages: ['javascript', 'python']
+2025-08-20 12:26:24,397 - src.code_analyzer.parser - INFO - Supported modes: ['call_graph', 'functions', 'calls', 'imports']
+2025-08-20 12:26:24,405 - src.code_analyzer.api - INFO - API started with supported languages: ['javascript', 'python']
+2025-08-20 12:34:33,516 - src.code_analyzer.parser - INFO - Loading default queries from: /Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries
+2025-08-20 12:34:33,517 - src.code_analyzer.parser - INFO - Found default query files: [PosixPath('/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries/javascript.yaml'), PosixPath('/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries/python.yaml')]
+2025-08-20 12:34:33,518 - src.code_analyzer.parser - INFO - Loaded queries for javascript
+2025-08-20 12:34:33,519 - src.code_analyzer.parser - INFO - Loaded queries for python
+2025-08-20 12:34:33,519 - src.code_analyzer.parser - INFO - Loading custom queries from: src/code_analyzer/queries/custom
+2025-08-20 12:34:33,519 - src.code_analyzer.parser - INFO - Found custom query files: []
+2025-08-20 12:34:33,519 - src.code_analyzer.parser - INFO - Supported languages: ['javascript', 'python']
+2025-08-20 12:34:33,520 - src.code_analyzer.parser - INFO - Supported modes: ['functions', 'calls', 'call_graph', 'imports']
+2025-08-20 12:34:33,526 - src.code_analyzer.api - INFO - API started with supported languages: ['javascript', 'python']
+2025-08-20 13:29:16,616 - src.code_analyzer.parser - INFO - Loading default queries from: /Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries
+2025-08-20 13:29:16,617 - src.code_analyzer.parser - INFO - Found default query files: [PosixPath('/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries/javascript.yaml'), PosixPath('/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries/python.yaml')]
+2025-08-20 13:29:16,618 - src.code_analyzer.parser - INFO - Loaded queries for javascript
+2025-08-20 13:29:16,619 - src.code_analyzer.parser - INFO - Loaded queries for python
+2025-08-20 13:29:16,619 - src.code_analyzer.parser - INFO - Loading custom queries from: src/code_analyzer/queries/custom
+2025-08-20 13:29:16,619 - src.code_analyzer.parser - INFO - Found custom query files: []
+2025-08-20 13:29:16,619 - src.code_analyzer.parser - INFO - Supported languages: ['javascript', 'python']
+2025-08-20 13:29:16,619 - src.code_analyzer.parser - INFO - Supported modes: ['functions', 'call_graph', 'calls', 'imports']
+2025-08-20 13:29:16,625 - src.code_analyzer.api - INFO - API started with supported languages: ['javascript', 'python']
+2025-08-20 13:29:22,635 - src.code_analyzer.api - ERROR - Unexpected error during parsing: 'function.def'
+Traceback (most recent call last):
+  File "/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/api.py", line 43, in parse_endpoint
+    results = parse_code(code_bytes, language, mode, QUERIES)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/parser.py", line 103, in parse_code
+    for func_node in captures['function.def']:
+                     ~~~~~~~~^^^^^^^^^^^^^^^^
+KeyError: 'function.def'
+2025-08-20 13:32:11,673 - src.code_analyzer.parser - INFO - Loading default queries from: /Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries
+2025-08-20 13:32:11,673 - src.code_analyzer.parser - INFO - Found default query files: [PosixPath('/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries/javascript.yaml'), PosixPath('/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries/python.yaml')]
+2025-08-20 13:32:11,674 - src.code_analyzer.parser - INFO - Loaded queries for javascript
+2025-08-20 13:32:11,676 - src.code_analyzer.parser - INFO - Loaded queries for python
+2025-08-20 13:32:11,676 - src.code_analyzer.parser - INFO - Loading custom queries from: src/code_analyzer/queries/custom
+2025-08-20 13:32:11,676 - src.code_analyzer.parser - INFO - Found custom query files: []
+2025-08-20 13:32:11,676 - src.code_analyzer.parser - INFO - Supported languages: ['javascript', 'python']
+2025-08-20 13:32:11,676 - src.code_analyzer.parser - INFO - Supported modes: ['functions', 'function_call', 'imports', 'function_and_block', 'call_graph', 'calls']
+2025-08-20 13:32:11,681 - src.code_analyzer.api - INFO - API started with supported languages: ['javascript', 'python']
+2025-08-20 13:32:15,924 - src.code_analyzer.api - ERROR - Unexpected error during parsing: 'function.def'
+Traceback (most recent call last):
+  File "/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/api.py", line 43, in parse_endpoint
+    results = parse_code(code_bytes, language, mode, QUERIES)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/parser.py", line 103, in parse_code
+    for func_node in captures['function.def']:
+                     ~~~~~~~~^^^^^^^^^^^^^^^^
+KeyError: 'function.def'
+2025-08-20 13:34:28,912 - src.code_analyzer.parser - INFO - Loading default queries from: /Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries
+2025-08-20 13:34:28,912 - src.code_analyzer.parser - INFO - Found default query files: [PosixPath('/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries/javascript.yaml'), PosixPath('/Users/manunellutla/Documents/Workspace2/treesitter_code_analyzer/src/code_analyzer/queries/python.yaml')]
+2025-08-20 13:34:28,913 - src.code_analyzer.parser - INFO - Loaded queries for javascript
+2025-08-20 13:34:28,915 - src.code_analyzer.parser - INFO - Loaded queries for python
+2025-08-20 13:34:28,915 - src.code_analyzer.parser - INFO - Loading custom queries from: src/code_analyzer/queries/custom
+2025-08-20 13:34:28,915 - src.code_analyzer.parser - INFO - Found custom query files: []
+2025-08-20 13:34:28,915 - src.code_analyzer.parser - INFO - Supported languages: ['javascript', 'python']
+2025-08-20 13:34:28,915 - src.code_analyzer.parser - INFO - Supported modes: ['calls', 'call_graph', 'functions', 'function_and_block', 'imports', 'function_call']
+2025-08-20 13:34:28,921 - src.code_analyzer.api - INFO - API started with supported languages: ['javascript', 'python']
