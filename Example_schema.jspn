@@ -1,0 +1,211 @@
+{
+  "id": "task-manager-ui-summary-001",
+  "project_metadata": {
+    "project_name": "Task Manager UI App",
+    "version": "1.2.0",
+    "description": "A web-based user interface for managing tasks, including creation, assignment, and tracking.",
+    "main_language": "JavaScript",
+    "license": "MIT",
+    "authors": [
+      "Alice Johnson",
+      "Bob Smith"
+    ],
+    "dependencies": [
+      {
+        "name": "react",
+        "version": "18.2.0"
+      },
+      {
+        "name": "axios",
+        "version": "1.4.0"
+      },
+      {
+        "name": "bootstrap",
+        "version": "5.3.0"
+      }
+    ],
+    "last_updated": "2025-08-20T14:30:00Z"
+  },
+  "file_details": [
+    {
+      "path": "src/App.js",
+      "file_size_bytes": 2048,
+      "language": "JavaScript",
+      "lines_of_code": 150,
+      "checksum": "a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2"
+    },
+    {
+      "path": "src/components/TaskList.js",
+      "file_size_bytes": 1536,
+      "language": "JavaScript",
+      "lines_of_code": 120,
+      "checksum": "b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3"
+    },
+    {
+      "path": "src/services/api.js",
+      "file_size_bytes": 1024,
+      "language": "JavaScript",
+      "lines_of_code": 80,
+      "checksum": "c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4"
+    },
+    {
+      "path": "tests/TaskList.test.js",
+      "file_size_bytes": 512,
+      "language": "JavaScript",
+      "lines_of_code": 50,
+      "checksum": "d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5"
+    }
+  ],
+  "code_metrics": {
+    "total_lines_of_code": 400,
+    "comment_lines": 100,
+    "blank_lines": 50,
+    "test_coverage_percent": 85.5,
+    "code_duplication_percent": 5.2,
+    "cyclomatic_complexity_average": 3.1
+  },
+  "security_vulnerabilities": [
+    {
+      "vulnerability_id": "VULN-001",
+      "description": "Potential XSS vulnerability in task description input",
+      "severity": "medium",
+      "affected_files": [
+        "src/components/TaskList.js"
+      ]
+    },
+    {
+      "vulnerability_id": "VULN-002",
+      "description": "Outdated dependency with known vulnerability",
+      "severity": "high",
+      "affected_files": [
+        "package.json"
+      ],
+      "cve_reference": "CVE-2023-12345"
+    }
+  ],
+  "components": [
+    {
+      "component_id": "COMP-001",
+      "component_name": "Task List View",
+      "description": "Displays a list of tasks with filtering and sorting capabilities",
+      "associated_files": [
+        "src/components/TaskList.js",
+        "src/App.js"
+      ],
+      "related_requirements": [
+        "REQ-001",
+        "REQ-002"
+      ]
+    },
+    {
+      "component_id": "COMP-002",
+      "component_name": "API Service",
+      "description": "Handles API requests for task operations",
+      "associated_files": [
+        "src/services/api.js"
+      ],
+      "related_requirements": [
+        "REQ-003"
+      ]
+    }
+  ],
+  "use_cases": [
+    {
+      "use_case_id": "UC-001",
+      "use_case_name": "Create New Task",
+      "description": "User creates a new task with title, description, and assignee",
+      "associated_files": [
+        "src/App.js",
+        "src/services/api.js"
+      ],
+      "involved_components": [
+        "COMP-001",
+        "COMP-002"
+      ]
+    },
+    {
+      "use_case_id": "UC-002",
+      "use_case_name": "View Task List",
+      "description": "User views and filters the list of existing tasks",
+      "associated_files": [
+        "src/components/TaskList.js"
+      ],
+      "involved_components": [
+        "COMP-001"
+      ]
+    }
+  ],
+  "functional_requirements": [
+    {
+      "requirement_id": "REQ-001",
+      "text": "The system shall display a list of tasks",
+      "implemented_by": [
+        "src/components/TaskList.js"
+      ]
+    },
+    {
+      "requirement_id": "REQ-002",
+      "text": "The system shall allow filtering tasks by status",
+      "implemented_by": [
+        "src/components/TaskList.js"
+      ]
+    },
+    {
+      "requirement_id": "REQ-003",
+      "text": "The system shall provide API endpoints for CRUD operations on tasks",
+      "implemented_by": [
+        "src/services/api.js"
+      ]
+    }
+  ],
+  "data_details": {
+    "databases": [
+      {
+        "name": "task_db",
+        "type": "MongoDB"
+      }
+    ],
+    "data_models": [
+      {
+        "model_name": "Task",
+        "description": "Represents a task with id, title, description, status, assignee",
+        "associated_files": [
+          "src/models/Task.js"
+        ]
+      }
+    ],
+    "api_endpoints": [
+      {
+        "path": "/tasks",
+        "method": "GET",
+        "description": "Retrieve all tasks"
+      },
+      {
+        "path": "/tasks",
+        "method": "POST",
+        "description": "Create a new task"
+      },
+      {
+        "path": "/tasks/{id}",
+        "method": "PUT",
+        "description": "Update an existing task"
+      }
+    ]
+  },
+  "data_lineage": [
+    {
+      "lineage_id": "LIN-001",
+      "source": "User Input Form",
+      "target": "task_db",
+      "transformation": "Validate and serialize task data before insertion",
+      "associated_use_case": "UC-001"
+    },
+    {
+      "lineage_id": "LIN-002",
+      "source": "task_db",
+      "target": "Task List View",
+      "transformation": "Query and format tasks for display",
+      "associated_use_case": "UC-002"
+    }
+  ]
+}
