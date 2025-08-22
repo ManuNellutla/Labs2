@@ -1,0 +1,389 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/codebase-summary.schema.json",
+  "title": "Codebase Summary Schema",
+  "description": "A comprehensive schema for summarizing a codebase, including metadata, files, metrics, vulnerabilities, components, use cases, requirements, data details, and data lineage.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "Unique identifier for the codebase summary",
+      "type": "string"
+    },
+    "project_metadata": {
+      "type": "object",
+      "properties": {
+        "project_name": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "main_language": {
+          "type": "string"
+        },
+        "license": {
+          "type": "string"
+        },
+        "authors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "version": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "version"
+            ]
+          }
+        },
+        "last_updated": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "project_name",
+        "version",
+        "description",
+        "main_language",
+        "license",
+        "authors",
+        "dependencies",
+        "last_updated"
+      ]
+    },
+    "file_details": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "file_size_bytes": {
+            "type": "integer"
+          },
+          "language": {
+            "type": "string"
+          },
+          "lines_of_code": {
+            "type": "integer"
+          },
+          "checksum": {
+            "type": "string",
+            "pattern": "^[a-fA-F0-9]{64}$"
+          }
+        },
+        "required": [
+          "path",
+          "file_size_bytes",
+          "language",
+          "lines_of_code",
+          "checksum"
+        ]
+      }
+    },
+    "code_metrics": {
+      "type": "object",
+      "properties": {
+        "total_lines_of_code": {
+          "type": "integer"
+        },
+        "comment_lines": {
+          "type": "integer"
+        },
+        "blank_lines": {
+          "type": "integer"
+        },
+        "test_coverage_percent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "code_duplication_percent": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "cyclomatic_complexity_average": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "total_lines_of_code",
+        "comment_lines",
+        "blank_lines",
+        "test_coverage_percent",
+        "code_duplication_percent",
+        "cyclomatic_complexity_average"
+      ]
+    },
+    "security_vulnerabilities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "vulnerability_id": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "severity": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "affected_files": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "cve_reference": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "vulnerability_id",
+          "description",
+          "severity",
+          "affected_files"
+        ]
+      }
+    },
+    "components": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "component_id": {
+            "type": "string"
+          },
+          "component_name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "associated_files": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "related_requirements": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "component_id",
+          "component_name",
+          "description",
+          "associated_files",
+          "related_requirements"
+        ]
+      }
+    },
+    "use_cases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "use_case_id": {
+            "type": "string"
+          },
+          "use_case_name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "associated_files": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "involved_components": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "use_case_id",
+          "use_case_name",
+          "description",
+          "associated_files",
+          "involved_components"
+        ]
+      }
+    },
+    "functional_requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "requirement_id": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "implemented_by": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "requirement_id",
+          "text",
+          "implemented_by"
+        ]
+      }
+    },
+    "data_details": {
+      "type": "object",
+      "properties": {
+        "databases": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "type"
+            ]
+          }
+        },
+        "data_models": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "model_name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "associated_files": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "model_name",
+              "description",
+              "associated_files"
+            ]
+          }
+        },
+        "api_endpoints": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string"
+              },
+              "method": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "path",
+              "method",
+              "description"
+            ]
+          }
+        }
+      },
+      "required": [
+        "databases",
+        "data_models",
+        "api_endpoints"
+      ]
+    },
+    "data_lineage": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "lineage_id": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "target": {
+            "type": "string"
+          },
+          "transformation": {
+            "type": "string"
+          },
+          "associated_use_case": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "lineage_id",
+          "source",
+          "target",
+          "transformation",
+          "associated_use_case"
+        ]
+      }
+    }
+  },
+  "required": [
+    "id",
+    "project_metadata",
+    "file_details",
+    "code_metrics",
+    "security_vulnerabilities",
+    "components",
+    "use_cases",
+    "functional_requirements",
+    "data_details",
+    "data_lineage"
+  ]
+}
